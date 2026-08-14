@@ -10,10 +10,14 @@
  */
 
 import { test as base, expect } from '@playwright/test';
-import { loadSiteConfig, type SiteConfig } from '@types/site-config.types';
+import { loadSiteConfig, type SiteConfig } from '@site-types/site-config.types';
 import { HomePage } from '@pages/home.page';
 import { NavigationPage } from '@pages/navigation.page';
 import { ContactFormPage } from '@pages/contact.page';
+import { PricingPage } from '@pages/pricing.page';
+import { FeaturesPage } from '@pages/features.page';
+import { IntegrationsPage } from '@pages/integrations.page';
+import { AIPage } from '@pages/ai.page';
 
 // ── Fixture type definitions ─────────────────────────────────────────────────
 
@@ -26,6 +30,14 @@ export interface Fixtures {
   navigationPage: NavigationPage;
   /** ContactFormPage page object (does not auto-navigate) */
   contactPage: ContactFormPage;
+  /** PricingPage page object (does not auto-navigate; call navigateToPricing()) */
+  pricingPage: PricingPage;
+  /** FeaturesPage page object (does not auto-navigate; call navigateToFeatures()) */
+  featuresPage: FeaturesPage;
+  /** IntegrationsPage page object (does not auto-navigate; call navigateToIntegrations()) */
+  integrationsPage: IntegrationsPage;
+  /** AIPage page object (does not auto-navigate; call navigateToAI()) */
+  aiPage: AIPage;
 }
 
 // ── Extended test object ─────────────────────────────────────────────────────
@@ -66,6 +78,42 @@ export const test = base.extend<Fixtures>({
   contactPage: async ({ page, siteConfig }, use) => {
     const contactPage = new ContactFormPage(page, siteConfig);
     await use(contactPage);
+  },
+
+  /**
+   * pricingPage — constructs PricingPage without navigating.
+   * Call pricingPage.navigateToPricing() in beforeEach.
+   */
+  pricingPage: async ({ page, siteConfig }, use) => {
+    const pricingPage = new PricingPage(page, siteConfig);
+    await use(pricingPage);
+  },
+
+  /**
+   * featuresPage — constructs FeaturesPage without navigating.
+   * Call featuresPage.navigateToFeatures() in beforeEach.
+   */
+  featuresPage: async ({ page, siteConfig }, use) => {
+    const featuresPage = new FeaturesPage(page, siteConfig);
+    await use(featuresPage);
+  },
+
+  /**
+   * integrationsPage — constructs IntegrationsPage without navigating.
+   * Call integrationsPage.navigateToIntegrations() in beforeEach.
+   */
+  integrationsPage: async ({ page, siteConfig }, use) => {
+    const integrationsPage = new IntegrationsPage(page, siteConfig);
+    await use(integrationsPage);
+  },
+
+  /**
+   * aiPage — constructs AIPage without navigating.
+   * Call aiPage.navigateToAI() in beforeEach.
+   */
+  aiPage: async ({ page, siteConfig }, use) => {
+    const aiPage = new AIPage(page, siteConfig);
+    await use(aiPage);
   },
 });
 

@@ -1,23 +1,23 @@
-﻿{
-    "name":  "Callingly",
-    "url":  "https://callingly.com",
-    "description":  "",
-    "industry":  "",
-    "hasContactForm":  true,
-    "expectedNavItems":  [
-
-                         ],
-    "viewports":  [
-                      "desktop",
-                      "mobile",
-                      "tablet"
-                  ],
-    "skipVisual":  false,
-    "skipForms":  false,
-    "auth":  {
-                 "required":  false,
-                 "loginUrl":  "",
-                 "username":  "",
-                 "password":  ""
-             }
+{
+  "name": "Callingly",
+  "url": "https://callingly.com",
+  "description": "AI-powered call and SMS sequences for B2B sales teams",
+  "industry": "Software Development / SaaS",
+  "hasContactForm": true,
+  "expectedNavItems": [
+    "Why Callingly?",
+    "Who We Serve",
+    "Integrations",
+    "Pricing",
+    "Login"
+  ],
+  "viewports": ["desktop", "mobile", "tablet"],
+  "skipVisual": false,
+  "skipForms": false,
+  "auth": {
+    "required": false,
+    "loginUrl": "",
+    "username": "",
+    "password": ""
+  }
 }

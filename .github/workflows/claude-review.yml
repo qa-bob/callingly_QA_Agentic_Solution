@@ -1,0 +1,46 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review this Playwright + TypeScript test suite pull request.
+
+            Check for:
+            1. POM architecture compliance
+               - No `expect()` calls inside page object methods (src/pages/)
+               - No raw `page.locator()` or `page.getByRole()` calls in test bodies (tests/)
+               - All page objects extend BasePage
+            2. TypeScript strict-mode compliance
+               - No untyped `any` without justification
+               - All Locator properties typed as `Locator`
+               - All method return types explicit
+            3. Test tagging
+               - Every `test()` call includes at least one tag in the title string
+               - Valid tags: @smoke, @navigation, @forms, @functional, @visual, @responsive, @regression
+            4. Playwright best practices
+               - No `page.waitForTimeout()` — use auto-waiting
+               - No hardcoded `https://callingly.com` URLs in test or page object files
+            5. Safety rules
+               - No form `.submit()` calls or submit button clicks
+               - No account creation or login flows (unless auth.required is set)
+
+            Post inline comments on specific lines where issues are found.
+            Summarize findings at the end of the review.

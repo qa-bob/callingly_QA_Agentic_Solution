@@ -26,7 +26,10 @@ Build and maintain a comprehensive GUI, functional, and regression test suite fo
 | `tests/functional/` | @functional — business logic, user flows |
 | `tests/visual/` | @visual — screenshot regression |
 | `tests/responsive/` | @responsive — layout at mobile/tablet/desktop |
+| `tests/regression/` | @regression — content accuracy, pricing values, nav structure |
 | `.claude/commands/` | Slash commands for agentic tasks |
+| `AGENTS.md` | Agent and automation documentation |
+| `Skills.md` | Slash command skill reference |
 
 ---
 
@@ -41,7 +44,7 @@ Build and maintain a comprehensive GUI, functional, and regression test suite fo
 
 ### Tests
 - Import page objects via the custom fixture in `src/fixtures/site.fixture.ts`
-- Tag every test with at least one of: `@smoke`, `@navigation`, `@forms`, `@functional`, `@visual`, `@responsive`
+- Tag every test with at least one of: `@smoke`, `@navigation`, `@forms`, `@functional`, `@visual`, `@responsive`, `@regression`
 - Do not hardcode URLs — always use `baseURL` from Playwright config (which reads `site.config.json`)
 - Never submit forms — test field interactions and validation only
 - Never create accounts or enter real credentials
@@ -62,6 +65,8 @@ npm run test:navigation     # @navigation tests only
 npm run test:forms          # @forms tests only
 npm run test:visual         # @visual tests only
 npm run test:responsive     # @responsive tests only
+npm run test:functional     # @functional tests only
+npm run test:regression     # @regression tests only
 npm run baseline            # Update visual snapshots
 npm run lint                # ESLint
 npm run typecheck           # TypeScript check
@@ -99,9 +104,10 @@ npm run typecheck           # TypeScript check
 | `@smoke` | Site loads, title present, no console errors |
 | `@navigation` | Nav links, routing, menus, breadcrumbs |
 | `@forms` | Form fields, validation, accessibility |
-| `@functional` | Business features: pricing, search, video, accordion |
+| `@functional` | Business features: pricing, AI agents, integrations, dropdowns |
 | `@visual` | Screenshot regression with `toHaveScreenshot()` |
 | `@responsive` | Viewport-specific layout checks |
+| `@regression` | Content accuracy: plan names, prices, nav items, footer links |
 
 ---
 
@@ -132,11 +138,19 @@ tests/
   forms/
     contact-form.spec.ts
   functional/
-    <feature>.spec.ts     # One file per business feature area
+    homepage.spec.ts
+    pricing.spec.ts
+    features.spec.ts
+    integrations.spec.ts
+    ai-agents.spec.ts
+    navigation-dropdowns.spec.ts
   visual/
     visual-regression.spec.ts
   responsive/
     layout.spec.ts
+  regression/
+    content-regression.spec.ts
+    pricing-accuracy.spec.ts
 ```
 
 ---
