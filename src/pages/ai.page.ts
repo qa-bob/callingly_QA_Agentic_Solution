@@ -34,7 +34,7 @@ export class AIPage extends BasePage {
 
   async hasAIContent(): Promise<boolean> {
     // mainHeading is confirmed visible on all viewports — check its text contains AI terms
-    const text = await this.mainHeading.textContent().catch(() => '');
+    const text = (await this.mainHeading.textContent().catch(() => '')) ?? '';
     return /ai|agent|call|close|voice/i.test(text);
   }
 
